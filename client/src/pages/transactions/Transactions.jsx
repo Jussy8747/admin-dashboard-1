@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useGetTransactionsQuery } from "../../slices/globalSliceApi";
 import Header from "../../component/Header";
 import DataGridCustomeToolbar from "../../component/DataGridCustomeToolbar";
-import { useTheme, Box} from "@emotion/react";
+import { useTheme, Box } from "@mui/material";
 const Transactions = () => {
   const theme = useTheme();
 
@@ -11,6 +11,7 @@ const Transactions = () => {
   const [pageSize, setPageSize] = useState(20);
   const [sort, setsort] = useState({});
   const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
   const { data, isLoading } = useGetTransactionsQuery({
     page,
@@ -19,37 +20,39 @@ const Transactions = () => {
     search,
   });
   console.log(data);
-const columns = [
-  {
-    field: "_id",
-    headerName: "ID",
-    flex: 1,
-  },
-  {
-    field: "userId",
-    headerName: "User ID",
-    flex: 1,
-  },
-  {
-    field: "createdAt",
-    headerName: "CreateAt",
-    flex: 1,
-  },
-  {
-    field: "products",
-    headerName: "£ of product",
-    flex: 0.5,
-    sortable: false,
-    renderCell: (params) => params.value.length
-  },
-  
-  {
-    field: "cost",
-    headerName: "Cost",
-    flex: 1,
-    renderCell: (params) => `${Number(params.value).toFixed(2)}`
-  },
-];
+  console.log("page:", page, "pageSize:", pageSize, "sort:", sort, search);
+
+  const columns = [
+    {
+      field: "_id",
+      headerName: "ID",
+      flex: 1,
+    },
+    {
+      field: "userId",
+      headerName: "User ID",
+      flex: 1,
+    },
+    {
+      field: "createdAt",
+      headerName: "CreateAt",
+      flex: 1,
+    },
+    {
+      field: "products",
+      headerName: "# of Products",
+      flex: 0.5,
+      sortable: false,
+      renderCell: (params) => params.value.length,
+    },
+
+    {
+      field: "cost",
+      headerName: "Cost",
+      flex: 1,
+      renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
+    },
+  ];
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="TRANSACTIONS" subtitle="Entire List Of Transactions" />
@@ -89,16 +92,23 @@ const columns = [
           getRowId={(row) => row._id}
           rows={(data && data.transactions) || []}
           columns={columns}
-          rowCount={(data && data.total)}
+          rowCount={(data && data.total) || 0}
+          rowsPerPageOptions={[20, 50, 100]}
           pagination
           page={page}
           pageSize={pageSize}
           paginationMode="server"
           sortingMode="server"
-          onPaginationModelChange={(newPage) => setPage(newPage)}
-          onPageSizeChange={(newPageSize)=>setPageSize(newPageSize)}
+          onPaginationModelChange={(newPage) => {
+            setPage(newPage.page);
+            setPageSize(newPage.pageSize);
+          }}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           onSortModelChange={(newSortModel) => setsort(...newSortModel)}
-          components={Toolbar: DataGridCustomeToolbar}
+          components={{ Toolbar: DataGridCustomeToolbar }}
+          componentsProps={{
+            toolbar: { searchInput, setSearchInput, setSearch },
+          }}
         />
       </Box>
     </Box>

@@ -14,6 +14,7 @@ import Layout from "./pages/layout/index";
 import Products from "./pages/products/Products";
 import Customers from "./pages/customers/Customers";
 import Transactions from "./pages/transactions/Transactions";
+import Geogaraphy from "./pages/geography/Geogaraphy";
 
 function App() {
   const mode = useSelector((state) => state.globalSlice.mode);
@@ -32,6 +33,7 @@ function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/customers" element={<Customers />} />
               <Route path="/transactions" element={<Transactions />} />
+              <Route path="/geography" element={<Geogaraphy />} />
             </Route>
           </Routes>
         </ThemeProvider>

@@ -4,7 +4,7 @@ const TransactionSchema = new mongoose.Schema(
   {
     userId: String,
     cost: String,
-    Products: {
+    products: {
       type: [mongoose.Types.ObjectId],
       of: Number,
     },
