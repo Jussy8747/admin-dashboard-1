@@ -1,5 +1,0 @@
-http://localhost:5000/general/user/63701cc1f03239c72c00017f
-
-###
-get http://localhost:5000/client/geography
-

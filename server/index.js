@@ -15,11 +15,14 @@ import User from "./models/user.js";
 import Product from "./models/product.js";
 import ProductStat from "./models/productStat.js";
 import Transaction from "./models/transactions.js";
+import OverallStat from "./models/overallStat.js";
+import AffiliateStat from "./models/affiliate.js";
 import {
   dataUser,
   dataProduct,
   dataProductStat,
-  dataTransaction,
+  dataOverallStat,
+  dataAffiliateStat,
 } from "./data/index.js";
 // CONFIGURATION
 
@@ -61,6 +64,8 @@ mongoose
     // Product.insertMany(dataProduct);
     // ProductStat.insertMany(dataProductStat);
     // Transaction.insertMany(dataTransaction);
+    // OverallStat.insertMany(dataOverallStat);
+    // AffiliateStat.insertMany(dataAffiliateStat);
   })
   .catch((err) => {
     console.log(`${err} did not connet`);

@@ -5,7 +5,17 @@ const url = import.meta.env.VITE_APP_BASE_URL;
 export const globalSliceApi = createApi({
   reducerPath: "globalSliceApi",
   baseQuery: fetchBaseQuery({ baseUrl: url }),
-  tagTypes: ["User", "Product", "Customers", "Transactions", "Geography"],
+  tagTypes: [
+    "User",
+    "Product",
+    "Customers",
+    "Transactions",
+    "Geography",
+    "Sales",
+    "Admins",
+    "Performance",
+    "Dashboard",
+  ],
 
   endpoints: (build) => ({
     getUser: build.query({
@@ -37,6 +47,23 @@ export const globalSliceApi = createApi({
       query: () => `client/geography`,
       providesTags: ["Geography"],
     }),
+    getSales: build.query({
+      query: () => `sales/sales`,
+      providesTags: ["Sales"],
+    }),
+    getAdmins: build.query({
+      query: () => `management/admins`,
+      providesTags: ["Admins"],
+    }),
+
+    getPerformance: build.query({
+      query: (id) => `management/performance/${id}`,
+      providesTags: ["Performance"],
+    }),
+    getDashboardStats: build.query({
+      query: (id) => `general/dashboard`,
+      providesTags: ["Dashboard"],
+    }),
   }),
 });
 
@@ -46,4 +73,8 @@ export const {
   useGetCustomersQuery,
   useGetTransactionsQuery,
   useGetGeographyQuery,
+  useGetSalesQuery,
+  useGetAdminsQuery,
+  useGetPerformanceQuery,
+  useGetDashboardStatsQuery,
 } = globalSliceApi;

@@ -15,7 +15,12 @@ import Products from "./pages/products/Products";
 import Customers from "./pages/customers/Customers";
 import Transactions from "./pages/transactions/Transactions";
 import Geogaraphy from "./pages/geography/Geogaraphy";
-
+import Overview from "./pages/overview/Overview";
+import Daily from "./pages/daily/Daily";
+import Monthly from "./pages/monthly/Monthly";
+import Breakdown from "./pages/breakdown/Breakdown";
+import Admins from "./pages/admin/Admins";
+import Performance from "./pages/perFormance/Performance";
 function App() {
   const mode = useSelector((state) => state.globalSlice.mode);
 
@@ -34,6 +39,12 @@ function App() {
               <Route path="/customers" element={<Customers />} />
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/geography" element={<Geogaraphy />} />
+              <Route path="/overview" element={<Overview />} />
+              <Route path="/daily" element={<Daily />} />
+              <Route path="/monthly" element={<Monthly />} />
+              <Route path="/breakdown" element={<Breakdown />} />
+              <Route path="/admin" element={<Admins />} />
+              <Route path="/performance/" element={<Performance />} />
             </Route>
           </Routes>
         </ThemeProvider>
